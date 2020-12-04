@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+body {
+	background-image:
+		url("https://blog.emania.com.br/wp-content/uploads/2016/04/depth-of-field-wallpaper-1.jpg");
+}
+
+.card {
+	margin: auto;
+	width: 300px;
+	padding-top: 40px;
+	box-shadow: 1px 1px 5px black;
+	background-color: rgba(240, 240, 240, 50%);
+	border-radius: 10px;
+	padding: 20px;
+	margin-top: 150px;
+}
+
+.card-esquerda {
+	width: 90px;
+	height: 400px;
+	box-shadow: 1px 1px 5px black;
+	background-color: rgba(240, 240, 240, 50%);
+	border-radius: 10px;
+	padding: 20px;
+	position: absolute;
+	margin-left: auto;
+}
+
+.card-direita {
+	width: 90px;
+	height: 400px;
+	box-shadow: 1px 1px 5px black;
+	background-color: rgba(240, 240, 240, 50%);
+	border-radius: 10px;
+	padding: 20px;
+	margin-left: auto;
+}
+
+.card-centralizado {
+	margin: auto;
+	width: 920px;
+	height: 400px;
+	box-shadow: 1px 1px 5px black;
+	background-color: rgba(240, 240, 240, 50%);
+	border-radius: 10px;
+	padding: 20px;
+	position: absolute;
+	top: 80px;
+	left: 150px;
+}
+
+.btnNavegar>form {
+	
+	width: 70px;
+    height: 30px;
+    position: relative;
+}
+
+.credito {
+	
+	position: relative;
+    font-size: 20px;
+    padding-top: 10px;
+    text-align: center;
+  
+}
+
+.txt {
+	
+	text-align: left;
+	padding-top: 30px;
+	display: list-item;
+	
+}
+
+.espaco {
+	padding-top: 30px;
+}
+
+.sisgreja {
+	text-align: center;
+	font-size: 25;
+}
+
+.sisgreja-p {
+
+	text-align: center;
+	font-size: 25;
+
+}
+
+.card-grup>input {
+	outline: 0;
+	width: 97%;
+	height: 20px;
+	margin-bottom: 5px;
+}
+
+.card-grup>button {
+	padding: 5px;
+	width: 100%;
+	border-radius: 5px;
+}
+
+.card-grup>label {
+	display: block;
+}
+
+.card-grup {
+	margin-bottom: 10px;
+}
+
+.erro {
+	text-align:center;
+	color: red;
+}
+
+.blue{
+	text-align:center;
+	color: blue;
+}
