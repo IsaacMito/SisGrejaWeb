@@ -1,14 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
 <%@ include file="../seguranca.jsp" %>
 
+<%@page import="com.isaac.sisgreja.domain.Usuario"%>
+<%@page import="com.isaac.sisgreja.persist.UsuariosDao"%>
 <%@page import="com.isaac.sisgreja.util.Funcoes"%>
-<%@page import="com.isaac.sisgreja.persist.FieisDao"%>
-<%@page import="com.isaac.sisgreja.domain.Fiel"%>
 <%@page import="java.util.List"%>
-<% 	
-
-	FieisDao dao = new FieisDao();
-	List<Fiel> fieis = dao.getListar();
+<% 
+	UsuariosDao dao = new UsuariosDao();
+	List<Usuario> usuarios = dao.getListar();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/principal.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -34,11 +33,11 @@
     
   	<hr class="hr-horizontal">
   
-  <nobr class="nobr-vertical animate__animated animate__fadeIn animate__delay-1.5s"> <a href="lista.jsp">Fiel</a></nobr>
+  <nobr class="nobr-vertical animate__animated animate__fadeIn animate__delay-1.5s"> <a href="../fiel/lista.jsp">Fiel</a></nobr>
   
   <nobr class="nobr-vertical animate__animated animate__fadeIn animate__delay-1.5s"> <a href="../pastor/lista.jsp">Pastor</a></nobr>
   
-  <nobr class="nobr-vertical animate__animated animate__fadeIn animate__delay-1.5s"> <a href="../usuario/lista.jsp"> Usuario</a></nobr>
+  <nobr class="nobr-vertical animate__animated animate__fadeIn animate__delay-1.5s"> <a href="lista.jsp"> Usuario</a></nobr>
   
   <nobr class="animate__animated animate__fadeIn animate__delay-1.5s"> <a href="../index.jsp">Sair</a></nobr>
   
@@ -48,32 +47,26 @@
   
 <div class="center pading"><!-- InstanceBeginEditable name="conteudo" --><table width="100%" border="0">
           <tr align="center">
-            <td>Lista de Fieis</td>
+            <td>Lista de Usuarios</td>
           </tr>
           <tr>
-            <td align="right"><a href="formulario.jsp?login=1">novo</a></td>
+            <td align="right"><a href="formulario.jsp?l=1">Novo</a></td>
           </tr>
           <tr>
             <td><table width="100%" border="1">
               <tr>
-                <td width="10%">CPF</td>
-                <td width="21%">Nome</td>
-                <td width="22%">Data de Nascimento</td>
-                <td width="17%">Dizimo</td>
-                <td width="13%">Alterar</td>
-                <td width="17%">Revomer</td>
-              </tr>
-            
-              <% for(Fiel fiel : fieis) { %>
+                <td width="26%">Login</td>
+                <td width="33%">senha</td>
+                <td width="21%">Alterar</td>
+                <td width="20%">Remover</td>
+                </tr>
+              <% for(Usuario usuario : usuarios) { %>
               <tr>
-                <td><% out.print(fiel.getCpf());%></td>
-                <td><% out.print(fiel.getNome());%></td>
-                <td><% out.print(Funcoes.dateToString(fiel.getDataNacimento()));%></td>
-                <td><% out.print(fiel.getDisimo());%></td>
-                <td align="center"><a href="formulario.jsp?login=1&cpf=<% out.print(fiel.getCpf());%>">alterar</a></td>
-                <td align="center"><a href="RemoverFielServlet?login=1&cpf=<% out.print(fiel.getCpf());%>">remover</a></td>
-              
-              </tr>
+                <td><% out.print(usuario.getLogin());%></td>
+                <td><% out.print(usuario.getSenha());%></td>
+                <td align="center"><a href="formulario.jsp?l=1&login=<% out.print(usuario.getLogin());%>">alterar</a></td>
+                <td align="center"><a href="RemoverUsuarioServlet?l=1&login=<% out.print(usuario.getLogin());%>">remover</a></td>
+                </tr>
                 
               <% } %>
             </table></td>

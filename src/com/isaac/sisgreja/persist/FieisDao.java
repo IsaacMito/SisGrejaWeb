@@ -16,10 +16,28 @@ public class FieisDao {
 
 	private Connection con = null;
 
-	public FieisDao() throws SQLException, ClassNotFoundException {
-		con = new ConnectionFactory().getConnection();
+	public FieisDao() throws Exception {
+		con = ConnectionFactory.getConnection();
 	}
 
+	public Fiel buscar(String cpf) throws SQLException {
+		
+		PreparedStatement stmt = con.prepareStatement("select * from fiel where cpf=?");
+		stmt.setString(1, cpf);
+		ResultSet rs = stmt.executeQuery();
+		
+		Fiel fiel = null;
+		if ( rs.next() ) {
+			fiel = new Fiel();	
+			fiel.setCpf(rs.getInt("cpf"));
+			fiel.setNome(rs.getString("nome"));
+			fiel.setDataNacimento(rs.getDate("data"));
+			fiel.setDisimo(rs.getDouble("dizimo"));
+		}
+		
+		return fiel;
+	}
+	
 	public void adiciona(Fiel fiel) throws SQLException {
 		
 		String sql = "insert into fiel " + "(cpf,nome,data, dizimo)" + " values (?,?,?,?)";
@@ -84,7 +102,7 @@ public class FieisDao {
 	public void remove(int cpf) {
 
 		try {
-			PreparedStatement stmt = con.prepareStatement("delete " + "from fiel where cpf=?");
+			PreparedStatement stmt = con.prepareStatement("delete from fiel where cpf=?");
 			stmt.setInt(1, cpf);
 
 			stmt.execute();

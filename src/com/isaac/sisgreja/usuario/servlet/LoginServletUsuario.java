@@ -1,4 +1,4 @@
-package com.isaac.sisgreja.servlet;
+package com.isaac.sisgreja.usuario.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.isaac.sisgreja.domain.Usuario;
 import com.isaac.sisgreja.persist.UsuariosDao;
@@ -30,6 +31,11 @@ public class LoginServletUsuario extends HttpServlet {
 			Usuario usuario = usuariosDao.buscar(login);
 
 			if ( usuario != null && usuario.getSenha().equals(senha) ) {
+				
+				HttpSession session = request.getSession(true);
+				
+				session.setAttribute("usuario", usuario);
+				
 				response.sendRedirect("bem-vindo.jsp");
 			} else {
 				response.sendRedirect("index.jsp?mensagam=1");

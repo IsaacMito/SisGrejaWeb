@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.isaac.sisgreja.domain.Fiel;
 import com.isaac.sisgreja.domain.Pastor;
 import com.isaac.sisgreja.jdbc.ConnectionFactory;
 
@@ -15,8 +16,26 @@ public class PastoresDao {
 
 	private Connection con;
 
-	public PastoresDao() throws SQLException, ClassNotFoundException {
-		con = new ConnectionFactory().getConnection();
+	public PastoresDao() throws Exception {
+		con = ConnectionFactory.getConnection();
+	}
+	
+	public Pastor buscar(String cpf) throws SQLException {
+		
+		PreparedStatement stmt = con.prepareStatement("select * from pastor where cpf=?");
+		stmt.setString(1, cpf);
+		ResultSet rs = stmt.executeQuery();
+		
+		Pastor pastor = null;
+		if ( rs.next() ) {
+			pastor = new Pastor();	
+			pastor.setCpf(rs.getInt("cpf"));
+			pastor.setNome(rs.getString("nome"));
+			pastor.setDataNacimento(rs.getDate("data"));
+			pastor.setSalario(rs.getDouble("salario"));
+		}
+		
+		return pastor;
 	}
 
 	public void adiciona(Pastor pastor) throws SQLException {
@@ -65,7 +84,7 @@ public class PastoresDao {
 
 	public void altera(Pastor pastor) {
 
-		String sql = "update pastor set nome=?, data=?," + "salario=? where cpf=?";
+		String sql = "update pastor set nome=?, data=?, salario=? where cpf=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(4, pastor.getCpf());
@@ -82,11 +101,11 @@ public class PastoresDao {
 		}
 	}
 
-	public void remove(Pastor pastor) {
+	public void remove(int cpf) {
 
 		try {
-			PreparedStatement stmt = con.prepareStatement("delete " + "from pastor where cpf=?");
-			stmt.setLong(1, pastor.getCpf());
+			PreparedStatement stmt = con.prepareStatement("delete from pastor where cpf=?");
+			stmt.setLong(1, cpf);
 
 			stmt.execute();
 			stmt.close();

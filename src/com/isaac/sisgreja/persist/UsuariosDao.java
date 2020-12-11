@@ -8,37 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.isaac.sisgreja.domain.Usuario;
-
 import com.isaac.sisgreja.jdbc.ConnectionFactory;
 
 public class UsuariosDao {
 
 	private Connection con;
 
-	public Usuario buscar(String login) throws SQLException {
-
-		String sql = "select * from usuario where login = '" + login +"'";
-		PreparedStatement stmt = con.prepareStatement(sql);
-
-		// executa
-		ResultSet rs = stmt.executeQuery();
-		if ( rs.next() ) {
-			Usuario usuario = new Usuario();
-			usuario.setLogin(rs.getString("login"));
-			usuario.setSenha(rs.getString("senha"));
-			
-			stmt.close();
-			return usuario;
-		}
-		
-		stmt.close();
-		return null;
+	public UsuariosDao() throws Exception {
+		con = ConnectionFactory.getConnection();
 	}
 
+	public Usuario buscar(String login) throws SQLException {
 
-	
-	public UsuariosDao() throws SQLException, ClassNotFoundException {
-		con = new ConnectionFactory().getConnection();
+		PreparedStatement stmt = con.prepareStatement("select * from usuario where login=?"); 
+		stmt.setString(1, login);
+		ResultSet rs = stmt.executeQuery();
+		
+		Usuario usuario = null;
+		if ( rs.next()) {
+			usuario = new Usuario();
+			usuario.setLogin(rs.getString("login"));
+			usuario.setSenha(rs.getString("senha"));
+		}
+		return usuario;
 	}
 
 	public void adiciona(Usuario usuario) throws SQLException {
@@ -51,7 +43,7 @@ public class UsuariosDao {
 		// seta os valores
 		stmt.setString(1, usuario.getSenha());
 		stmt.setString(2, usuario.getLogin());
-		
+
 		// executa
 		stmt.execute();
 		stmt.close();
@@ -66,10 +58,10 @@ public class UsuariosDao {
 
 		while (rs.next()) {
 
-			 Usuario  usuario = new Usuario();
+			Usuario usuario = new Usuario();
 
-			 usuario.setLogin(rs.getString("login"));
-			 usuario.setSenha(rs.getString("senha"));
+			usuario.setLogin(rs.getString("login"));
+			usuario.setSenha(rs.getString("senha"));
 
 			usuarios.add(usuario);
 		}
@@ -81,7 +73,7 @@ public class UsuariosDao {
 
 	public void altera(Usuario usuario) {
 
-		String sql = "update usuario set senha=?, login=?" + "where login=?";
+		String sql = "update usuario set senha=? where login=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, usuario.getSenha());
@@ -95,11 +87,11 @@ public class UsuariosDao {
 		}
 	}
 
-	public void remove(Usuario usuario) {
+	public void remove(String login) {
 
 		try {
-			PreparedStatement stmt = con.prepareStatement("delete " + "from usuario where login=?");
-			stmt.setString(1, usuario.getLogin());
+			PreparedStatement stmt = con.prepareStatement("delete from usuario where login=?");
+			stmt.setString(1, login);
 
 			stmt.execute();
 			stmt.close();

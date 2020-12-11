@@ -1,46 +1,44 @@
-package com.isaac.sisgreja.servlet;
+package com.isaac.sisgreja.usuario.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
-import com.isaac.sisgreja.domain.Fiel;
-import com.isaac.sisgreja.persist.FieisDao;
+import com.isaac.sisgreja.domain.Pastor;
+import com.isaac.sisgreja.domain.Usuario;
+import com.isaac.sisgreja.persist.PastoresDao;
+import com.isaac.sisgreja.persist.UsuariosDao;
 import com.isaac.sisgreja.util.Funcoes;
 
 /**
- * Servlet implementation class CadastraFielServlet
+ * Servlet implementation class CadastrarUsuarioServlet
  */
-@WebServlet("/fiel/CadastraFielServlet")
-public class CadastraFielServlet extends HttpServlet {
+@WebServlet("/usuario/CadastrarUsuarioServlet")
+public class CadastrarUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 
-			Fiel fiel = new Fiel();
-			FieisDao dao = new FieisDao();
+			Usuario usuario = new Usuario();
+			UsuariosDao dao = new UsuariosDao();
 
-			fiel.setCpf(Integer.parseInt(request.getParameter("cpf")));
-			fiel.setNome(request.getParameter("nome"));
-			fiel.setDataNacimento(Funcoes.stringToDate(request.getParameter("data")));
-			fiel.setDisimo(Double.parseDouble(request.getParameter("dizimo")));
-			
-			dao.adiciona(fiel);
-			
+			usuario.setLogin(request.getParameter("login"));
+			usuario.setSenha(request.getParameter("senha"));
+
+			dao.adiciona(usuario);
+
 			response.sendRedirect("lista.jsp");
-			
+
 		} catch (java.sql.SQLIntegrityConstraintViolationException p4) {
-			response.sendRedirect("formulario.jsp?m=1");	
+			response.sendRedirect("formulario.jsp");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new ServletException(e);
@@ -56,4 +54,5 @@ public class CadastraFielServlet extends HttpServlet {
 		}
 
 	}
+
 }

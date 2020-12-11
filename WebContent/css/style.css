@@ -1,8 +1,48 @@
 @charset "UTF-8";
 
-body {
+body{
 	background-image:
 		url("https://blog.emania.com.br/wp-content/uploads/2016/04/depth-of-field-wallpaper-1.jpg");
+		width: 100%;
+		height: 100%;
+		position: fixed;
+}
+
+.butao{
+	background-image: url("https://icon-icons.com/icons2/37/PNG/32/delete_4219.png");
+}
+
+
+a{
+	font-family: monospace;
+	text-decoration: wavy;
+}
+
+
+.center{
+	text-align: center;
+}
+
+.pading{
+	padding-top: 50px;
+}
+
+.hr-horizontal{
+	border: 0;
+ 	height: 2px;
+ 	background-image: linear-gradient(to right, #00000000, #000, #00000000);
+}
+
+nobr{
+	padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+.nobr-vertical{
+	border-right: 2px solid;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .card {
@@ -16,38 +56,13 @@ body {
 	margin-top: 150px;
 }
 
-.card-esquerda {
-	width: 90px;
-	height: 400px;
-	box-shadow: 1px 1px 5px black;
-	background-color: rgba(240, 240, 240, 50%);
-	border-radius: 10px;
-	padding: 20px;
-	position: absolute;
-	margin-left: auto;
-}
-
-.card-direita {
-	width: 90px;
-	height: 400px;
-	box-shadow: 1px 1px 5px black;
-	background-color: rgba(240, 240, 240, 50%);
-	border-radius: 10px;
-	padding: 20px;
-	margin-left: auto;
-}
-
 .card-centralizado {
-	margin: auto;
-	width: 920px;
-	height: 400px;
+	margin:auto;
+	width: 768px;
 	box-shadow: 1px 1px 5px black;
 	background-color: rgba(240, 240, 240, 50%);
 	border-radius: 10px;
 	padding: 20px;
-	position: absolute;
-	top: 80px;
-	left: 150px;
 }
 
 .btnNavegar>form {
@@ -79,28 +94,39 @@ body {
 }
 
 .sisgreja {
+	font-family: OCR A Std, monospace;
 	text-align: center;
-	font-size: 25;
 }
 
 .sisgreja-p {
-
-	text-align: center;
-	font-size: 25;
-
+	font-size: 100px;
+	font-family: OCR A Std, monospace;
 }
 
+.card-grup>label{
+	font-family: Courier, monospace;
+}
+
+
 .card-grup>input {
+	border: 0;
 	outline: 0;
 	width: 97%;
 	height: 20px;
 	margin-bottom: 5px;
+	border-radius: 5px;
 }
 
 .card-grup>button {
-	padding: 5px;
-	width: 100%;
-	border-radius: 5px;
+
+	outline: 0;
+	background-image: linear-gradient(to right, #ff5100, #ad0000);
+    text-align: center;
+    height: 30px;
+    width: 100%;
+    color: white;
+    border-radius: 30px;
+    border: 0px;
 }
 
 .card-grup>label {
@@ -116,7 +142,12 @@ body {
 	color: red;
 }
 
-.blue{
-	text-align:center;
-	color: blue;
+@keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
 }
+
+.fadeIn {
+	animation: fadeIn 3s ease-in-out;
+}
+
